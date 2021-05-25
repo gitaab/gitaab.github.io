@@ -8,6 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
+          mkdir ebook
           echo "FILELIST=$(printf '"%s" ' book/*.md)" >> $GITHUB_ENV
       - uses: docker://pandoc/latex:2.9
         with:
