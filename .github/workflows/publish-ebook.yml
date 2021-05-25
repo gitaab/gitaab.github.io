@@ -3,19 +3,19 @@ name: Advanced Usage
 on: push
 
 jobs:
-  convert_via_pandoc:
+  generate-ebook-from-markdown:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - run: |
-          mkdir ebook
+          mkdir -p ebook
           echo "FILELIST=$(printf '"%s" ' book/*.md)" >> $GITHUB_ENV
       - uses: docker://pandoc/latex:2.8
         with:
           args: --output=ebook/${{ github.event.repository.name }}.epub css/title.txt ${{ env.FILELIST }}
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: uploading the ebook
+          commit_message: commit the epub
       - uses: actions/upload-artifact@master
         with:
           name: output
