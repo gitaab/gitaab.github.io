@@ -10,7 +10,7 @@ jobs:
       - run: |
           mkdir -p ebook
           echo "FILELIST=$(printf '"%s" ' book/*.md)" >> $GITHUB_ENV
-      - uses: docker://pandoc/latex:2.8
+      - uses: docker://pandoc/latex:2.9
         with:
           args: --output=ebook/${{ github.event.repository.name }}.epub css/title.txt --css=css/mybook.css ${{ env.FILELIST }}
       - uses: stefanzweifel/git-auto-commit-action@v4
