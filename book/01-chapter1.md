@@ -1,4 +1,4 @@
-# Title #
+# Title
 
 ## Heading 1 ##
 This is heading 1
