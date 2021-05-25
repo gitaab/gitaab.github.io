@@ -1,0 +1,21 @@
+name: Advanced Usage
+
+on: push
+
+jobs:
+  convert_via_pandoc:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          echo "FILELIST=$(printf '"%s" ' book/*.md)" >> $GITHUB_ENV
+      - uses: docker://pandoc/latex:2.9
+        with:
+          args: --output=ebook/${{ github.event.repository.name }}.epub css/title.txt ${{ env.FILELIST }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: auto-commit pdf
+      - uses: actions/upload-artifact@master
+        with:
+          name: output
+          path: output
